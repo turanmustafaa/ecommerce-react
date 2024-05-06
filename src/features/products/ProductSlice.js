@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk,createAction } from '@reduxjs/toolkit';
 import { getProducts } from '../../api/ProductsApi';
 
-// Asenkron olarak ürünleri almak için thunk oluşturucu
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   try {
     const response = await getProducts();
@@ -11,14 +10,12 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
   }
 });
 
-// Ürünleri filtrelemek için kullanılan eylem oluşturucu
 export const updateFilteredProducts = createAction('products/updateFilteredProducts');
 
-// Products slice'ı için başlangıç durumu
 const initialState = {
   products: [],
   totalPriceBasket : null,
-  filteredProducts: [], // Filtrelenmiş ürünler için boş bir dizi
+  filteredProducts: [], 
   status: '',
   error: null,
   cart: {
@@ -26,13 +23,10 @@ const initialState = {
   }
 };
 
-
-// Products slice'ı oluşturucu
 const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    // SortBy türüne göre ürünleri sıralama
     sort(state, action) {
       const { sortByType } = action.payload;
       let sortedProducts = [...state.products];
@@ -57,13 +51,11 @@ const productsSlice = createSlice({
       state.filteredProducts = sortedProducts;
     },
     totalPrice(state) {
-        // Sepetteki her ürünün toplam fiyatını hesapla
         let totalPrice = 0;
         state.cart.items.forEach(item => {
             totalPrice += Number(item.totalPrice);
         });
-    
-        // Toplam fiyatı state içinde güncelle
+        
         state.totalPriceBasket = totalPrice;
         console.log(state.totalPriceBasket,'totalprice')
         localStorage.setItem('totalPrice' ,state.totalPriceBasket)
