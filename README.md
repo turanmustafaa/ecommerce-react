@@ -28,14 +28,11 @@ Bu proje,ReactJs ve ReduxToolkit kullanılarak geliştirilmiştir. Aşağıda pr
 - İstekler için Axios kütüphanesi kullanıldı.
 - Tum Style Islemleri TailwindCSS ile yapıldı. 
 - Projenin tamamı Tailwind CSS ile yazıldı. sadece active class için custom css yazılmak durumunda kalındı. Zaman kazanmak amacıyla bu tercih yapıldı.
--son olarak mobil'e uygun tasarlanmadı bu yuzden min 1280 px cihazlarda calistiriniz.
-- proje linki aşağıdadır.
+- Mobil'e uygun tasarlanmadı bu yuzden min 1280 px cihazlarda calistiriniz.
 - projede Toast notification kullanıldı boylelikle daha iyi bir kullanıcı deneyimi sunuldu.
 
 
 # Projede olan eksiklikler
-
-Oncelikle belirtmeliyimki kısıtlı bir zaman içinde projeyi geliştigimden eksik oldugunu dusundugum/olan taraflarını burada paylasmak istedim. tum bunları zamandan dolayı ekleyemedigimi belirtmek isterim takdir edersiniz ki aktif olarak çalısıyorum! 
 
 - React Skelaton eklenerek productların yuklenmesi sırasında daha iyi bir kullanıcı deneyimi sunulabilirdi.
 - Error Page eklenebilirdi.
