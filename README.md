@@ -28,6 +28,7 @@ Bu proje,ReactJs ve ReduxToolkit kullanılarak geliştirilmiştir. Aşağıda pr
 - Projenin tamamı Tailwind CSS ile yazıldı. sadece active class için custom css yazılmak durumunda kalındı. Zaman kazanmak amacıyla bu tercih yapıldı.
 -son olarak mobil'e uygun tasarlanmadı bu yuzden min 1280 px cihazlarda calistiriniz.
 - proje linki aşağıdadır.
+- projede Toast notification kullanıldı boylelikle daha iyi bir kullanıcı deneyimi sunuldu.
 
 
 # Projede olan eksiklikler
@@ -36,9 +37,6 @@ Oncelikle belirtmeliyimki kısıtlı bir zaman içinde projeyi geliştigimden ek
 
 - React Skelaton eklenerek productların yuklenmesi sırasında daha iyi bir kullanıcı deneyimi sunulabilirdi.
 - Error Page eklenebilirdi.
-- Styling daha iyi bir halde olabilirdi.
-- Urun eklendiginde Toast Notification ile daha iyi bir kullanıcı deneyimi sunulabilirdi.
-- Kod kalitesi olarak yuzde 80'lerde oldugunu dusunuyorum bu yuzden ustunden geçilebilir.
 - Reducers parçalara bolunebilirdi.
 - api ve BASE_URL için .env kullanılması daha saglıklı olurdu. 
 - proje Responsive olarak geliştirilebilirdi.
