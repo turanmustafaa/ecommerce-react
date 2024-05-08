@@ -12,6 +12,8 @@ Bu projede aşağıdaki teknolojiler kullanılmıştır:
 - Axios
 - TailwindCSS
 - React Pagination
+- React Toastify
+- Cypress
 
 # Projeyi Nasıl Geliştirdim
 
