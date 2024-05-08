@@ -1,4 +1,3 @@
-// src/particuls/sortBy.jsx
 import React from "react";
 import { useDispatch } from 'react-redux';
 import { sort } from '../features/products/ProductSlice';

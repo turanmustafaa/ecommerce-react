@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Etaration Frontend Case
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bu proje, iş başvurusu için geliştirilen bir case projesidir. Bu README dosyası, projenin genel yapısını, kullanılan teknolojiler ve projeyi çalıştırma adımlarını içerir.
 
-## Available Scripts
+## Kullanılan Teknolojiler
 
-In the project directory, you can run:
+Bu projede aşağıdaki teknolojiler kullanılmıştır:
 
-### `npm start`
+- ReactJs
+- Redux-toolkit
+- React-router-dom
+- Axios
+- TailwindCSS
+- React Pagination
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Projeyi Nasıl Geliştirdim
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Bu proje,ReactJs ve ReduxToolkit kullanılarak geliştirilmiştir. Aşağıda projenin geliştirilme sürecinde kullanılan yöntemler ve teknolojiler hakkında detaylı bilgiler bulunmaktadır:
 
-### `npm test`
+- Proje ReactJs ile geliştirildi.
+- Projenin tum parçaları aktif olarak çalısmakta(sorting/ filtering/search filtering /localstorage products / total price etc. )
+- Projeyi tekrar olçeklenebilir hale getirdim. Layout sistemini entegre ettim. Mimari değiştirmeden büyütülebilir ve esnek bir yapıya sahip. Farklı modallar, bileşenler vb. esnek bir şekilde entegre edilebilir ve tekrar kullanılabilir.
+- Veri alışverişi işlemleri için Redux-toolkit ve props'lar kullanıldı.
+- Redux yapısını moduler olarak kurdum. boylelikle olceklenebilir olarak bir başkası kodun uzerinden rahatlıkla devam edebilir. 
+- Servis istekleri bir base_url ile api klasorunden atılıyor. buraya bir interceptor dahil edilebilirdi ancak gerek duymadım.
+- İstekler için Axios kütüphanesi kullanıldı.
+- Tum Style Islemleri TailwindCSS ile yapıldı. 
+- Projenin tamamı Tailwind CSS ile yazıldı. sadece active class için custom css yazılmak durumunda kalındı. Zaman kazanmak amacıyla bu tercih yapıldı.
+-son olarak mobil'e uygun tasarlanmadı bu yuzden min 1280 px cihazlarda calistiriniz.
+- proje linki aşağıdadır.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+# Projede olan eksiklikler
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Oncelikle belirtmeliyimki kısıtlı bir zaman içinde projeyi geliştigimden eksik oldugunu dusundugum/olan taraflarını burada paylasmak istedim. tum bunları zamandan dolayı ekleyemedigimi belirtmek isterim takdir edersiniz ki aktif olarak çalısıyorum! 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React Skelaton eklenerek productların yuklenmesi sırasında daha iyi bir kullanıcı deneyimi sunulabilirdi.
+- Error Page eklenebilirdi.
+- Styling daha iyi bir halde olabilirdi.
+- Urun eklendiginde Toast Notification ile daha iyi bir kullanıcı deneyimi sunulabilirdi.
+- Kod kalitesi olarak yuzde 80'lerde oldugunu dusunuyorum bu yuzden ustunden geçilebilir.
+- Reducers parçalara bolunebilirdi.
+- api ve BASE_URL için .env kullanılması daha saglıklı olurdu. 
+- proje Responsive olarak geliştirilebilirdi.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Nasıl Çalıştırılır?
 
-### `npm run eject`
+Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Öncelikle, projeyi klonlayın veya zip olarak indirin:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone <proje-git-url>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+npm run start
+```

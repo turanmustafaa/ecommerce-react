@@ -7,15 +7,16 @@ import { Link } from "react-router-dom";
 export default function Header() {
     const [searchTerm, setSearchTerm] = useState('');
     const dispatch = useDispatch();
-    const products = useSelector((state) => state.products.products) || [];
+    const products = useSelector((state) => state.products.products) || [] ;
     const totalPrice = useSelector((state) => state.products.totalPriceBasket) || 0;
-
+    
     const handleSearchChange = (e) => {
         const searchTerm = e.target.value;
         setSearchTerm(searchTerm);
 
-        const filteredProducts = products.filter(item => item.name.includes(searchTerm));
+        const filteredProducts = products.filter(item => item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
         dispatch(updateFilteredProducts(filteredProducts));
+
     };
 
     return (

@@ -5,7 +5,7 @@ import BasketCount from '../particuls/BasketCount';
 import { addToCart } from '../features/products/ProductSlice';
 import TotalPrice from '../particuls/TotalPrice';
 import { totalPrice } from "../features/products/ProductSlice";
-
+import {toast} from 'react-toastify';
 const CardDetail = () => {
   const dispatch = useDispatch()
   const { id } = useParams();
@@ -13,6 +13,7 @@ const CardDetail = () => {
   const handleAddToCart = () => {
     dispatch(addToCart(product));
     dispatch(totalPrice())
+    toast.success('ürün eklendi')
   };
   return (
     <div className='flex gap-4 h-3/4'>

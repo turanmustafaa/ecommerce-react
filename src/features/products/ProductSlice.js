@@ -1,53 +1,57 @@
-import { createSlice, createAsyncThunk,createAction } from '@reduxjs/toolkit';
-import { getProducts } from '../../api/ProductsApi';
-
-// Asenkron olarak ürünleri almak için thunk oluşturucu
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  try {
-    const response = await getProducts();
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import { getProducts } from "../../api/ProductsApi";
+import whenCreatedAt from "../../helpers/createdAt";
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  async () => {
+    try {
+      const response = await getProducts();
+      return response.data;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
-});
+);
 
-// Ürünleri filtrelemek için kullanılan eylem oluşturucu
-export const updateFilteredProducts = createAction('products/updateFilteredProducts');
+export const updateFilteredProducts = createAction(
+  "products/updateFilteredProducts"
+);
 
-// Products slice'ı için başlangıç durumu
 const initialState = {
   products: [],
-  totalPriceBasket : null,
-  filteredProducts: [], // Filtrelenmiş ürünler için boş bir dizi
-  status: '',
+  totalPriceBasket: 0,
+  filteredProducts: [],
+  status: "",
   error: null,
   cart: {
-    items: []
-  }
+    items: [],
+  },
 };
-
-
-// Products slice'ı oluşturucu
 const productsSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState,
   reducers: {
-    // SortBy türüne göre ürünleri sıralama
     sort(state, action) {
       const { sortByType } = action.payload;
-      let sortedProducts = [...state.products];
+      let sortedProducts = state.filteredProducts
+        ? [...state.filteredProducts]
+        : [...state.products];
 
       switch (sortByType) {
-        case 'oldToNew':
-          sortedProducts.sort((a, b) => a.createdAt - b.createdAt);
+        case "oldToNew":
+          sortedProducts.sort(
+            (a, b) => whenCreatedAt(a.createdAt) - whenCreatedAt(b.createdAt)
+          );
           break;
-        case 'newToOld':
-          sortedProducts.sort((a, b) => b.createdAt - a.createdAt);
+        case "newToOld":
+          sortedProducts.sort(
+            (a, b) => whenCreatedAt(b.createdAt) - whenCreatedAt(a.createdAt)
+          );
           break;
-        case 'priceHighToLow':
+        case "priceHighToLow":
           sortedProducts.sort((a, b) => b.price - a.price);
           break;
-        case 'priceLowToHigh':
+        case "priceLowToHigh":
           sortedProducts.sort((a, b) => a.price - b.price);
           break;
         default:
@@ -57,82 +61,103 @@ const productsSlice = createSlice({
       state.filteredProducts = sortedProducts;
     },
     totalPrice(state) {
-        // Sepetteki her ürünün toplam fiyatını hesapla
-        let totalPrice = 0;
-        state.cart.items.forEach(item => {
-            totalPrice += Number(item.totalPrice);
-        });
-    
-        // Toplam fiyatı state içinde güncelle
-        state.totalPriceBasket = totalPrice;
-        console.log(state.totalPriceBasket,'totalprice')
-        localStorage.setItem('totalPrice' ,state.totalPriceBasket)
+      let totalPrice = 0;
+      state.cart.items.forEach((item) => {
+        console.log(item.totalPrice, "item total");
+        totalPrice += Number(item.totalPrice);
+      });
+      state.totalPriceBasket = totalPrice;
+      console.log(state.totalPriceBasket, "totalprice");
+      localStorage.setItem("totalPrice", state.totalPriceBasket);
     },
-    
+    updateTotalPrice(state, action) {
+      let total = action.payload;
+      state.totalPriceBasket = total;
+    },
+
     addToCart(state, action) {
       const productToAdd = action.payload;
 
-      const existingItem = state.cart.items.find((item) => item.id === productToAdd.id);
-        
+      const existingItem = state.cart.items.find(
+        (item) => item.id === productToAdd.id
+      );
+
       if (existingItem) {
         existingItem.quantity++;
-        existingItem.totalPrice = existingItem.quantity * existingItem.price
-        localStorage.setItem('carts', JSON.stringify(state.cart.items))
-
+        existingItem.totalPrice = existingItem.quantity * existingItem.price;
+        localStorage.setItem("carts", JSON.stringify(state.cart.items));
       } else {
-        state.cart.items.push({ ...productToAdd, quantity: productToAdd.quantity ? productToAdd.quantity : 1 ,totalPrice : productToAdd.price });
-        localStorage.setItem('carts', JSON.stringify(state.cart.items))
+        state.cart.items.push({
+          ...productToAdd,
+          quantity: productToAdd.quantity ? productToAdd.quantity : 1,
+          totalPrice: productToAdd.price,
+        });
+        localStorage.setItem("carts", JSON.stringify(state.cart.items));
       }
     },
     deleteOrDecreaseFromCart(state, action) {
       const productToAdd = action.payload;
-      const existingItem = state.cart.items.find((item) => item.id === productToAdd.id);
-        
-      if (existingItem && existingItem.quantity > 0 && existingItem.quantity < 2) {
-        state.cart.items = state.cart.items.filter(item => item.id !== existingItem.id )
-        localStorage.setItem('carts', JSON.stringify(state.cart.items))
+      const existingItem = state.cart.items.find(
+        (item) => item.id === productToAdd.id
+      );
 
+      if (
+        existingItem &&
+        existingItem.quantity > 0 &&
+        existingItem.quantity < 2
+      ) {
+        state.cart.items = state.cart.items.filter(
+          (item) => item.id !== existingItem.id
+        );
+        localStorage.setItem("carts", JSON.stringify(state.cart.items));
       } else {
-        existingItem.quantity--
-        existingItem.totalPrice = existingItem.quantity * existingItem.price
-        localStorage.setItem('carts', JSON.stringify(state.cart.items))
+        existingItem.quantity--;
+        existingItem.totalPrice = existingItem.quantity * existingItem.price;
+        localStorage.setItem("carts", JSON.stringify(state.cart.items));
       }
     },
 
     IncreaseFromCart(state, action) {
       const productToAdd = action.payload;
-      console.log(productToAdd,'product')
-      const existingItem = state.cart.items.find((item) => item.id === productToAdd.id);
-        existingItem.quantity++
-        existingItem.totalPrice = existingItem.quantity * existingItem.price
-        localStorage.setItem('carts', JSON.stringify(state.cart.items))
-
+      console.log(productToAdd, "product");
+      const existingItem = state.cart.items.find(
+        (item) => item.id === productToAdd.id
+      );
+      existingItem.quantity++;
+      existingItem.totalPrice = existingItem.quantity * existingItem.price;
+      localStorage.setItem("carts", JSON.stringify(state.cart.items));
     },
-
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
         state.error = null;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = "succeeded";
         state.products = action.payload;
         state.filteredProducts = action.payload;
         state.error = null;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
       })
       .addCase(updateFilteredProducts, (state, action) => {
-
         state.filteredProducts = action.payload;
       });
   },
 });
 
-export const { sort, addToCart,deleteOrDecreaseFromCart,IncreaseFromCart,totalPrice } = productsSlice.actions; // SortBy ve addToCart eylemlerini dışa aktar
+export const {
+  sort,
+  addToCart,
+  deleteOrDecreaseFromCart,
+  IncreaseFromCart,
+  totalPrice,
+  updateTotalPrice,
+  } 
+  = productsSlice.actions;
 
 export default productsSlice.reducer;

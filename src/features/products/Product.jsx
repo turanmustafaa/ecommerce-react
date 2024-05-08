@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/products/ProductSlice";
 import { totalPrice } from "../products/ProductSlice";
+import { toast } from 'react-toastify';
 const Product = ({ product }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
     dispatch(addToCart(product));
+    dispatch(totalPrice());
+    toast.success('ürün eklendi')
   };
 
   return (
@@ -27,7 +30,6 @@ const Product = ({ product }) => {
           className="w-full bg-blue-500 text-white z-10"
           onClick={() => {
             handleAddToCart();
-            dispatch(totalPrice());
           }}
         >
           Add to Cart

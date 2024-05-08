@@ -35,9 +35,9 @@ export default function BasketCount() {
             <span className='text-sm'>{item.totalPrice} ₺</span>
           </div>
           <div className='flex items-center'>
-            <button onClick={() => dispatch(deleteOrDecreaseFromCart(item),dispatch(totalPrice()))} className='px-2 py-1 bg-gray-100'>-</button>
+            <button onClick={() => [dispatch(deleteOrDecreaseFromCart(item)),dispatch(totalPrice())]} className='px-2 py-1 bg-gray-100'>-</button>
             <span className='px-2 py-1 bg-blue-500 text-white'>{item.quantity}</span>
-            <button onClick={() => dispatch(IncreaseFromCart(item), dispatch(totalPrice()))} className='px-2 py-1 bg-gray-100'>+</button>
+            <button onClick={() =>[ dispatch(IncreaseFromCart(item)),dispatch(totalPrice())]} className='px-2 py-1 bg-gray-100'>+</button>
           </div>
         </div>
       ))}
